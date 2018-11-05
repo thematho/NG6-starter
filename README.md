@@ -1,21 +1,15 @@
-<p align="center">
-  <a href="http://courses.angularclass.com/courses/angular-2-fundamentals" target="_blank">
-    <img width="438" alt="Angular 2 Fundamentals" src="https://cloud.githubusercontent.com/assets/1016365/17200649/085798c6-543c-11e6-8ad0-2484f0641624.png">
-  </a>
-</p>
-
----
 
 <p align="center">
   <a href="https://angularclass.com" target="_blank">
     <img src="https://cloud.githubusercontent.com/assets/1016365/9864650/93a5660a-5b00-11e5-8716-a0d538d12913.png" alt="ng6-starter" width="480px;" >
   </a>
-  <!-- old img url: http://res.cloudinary.com/angularclass/image/upload/v1431802814/ng6_vrmd60.png -->
 </p>
 
 # NG6 [![Join Slack](https://img.shields.io/badge/slack-join-brightgreen.svg)](https://angularclass.com/slack-join) [![Join the chat at https://gitter.im/angularclass/NG6-starter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/angularclass/NG6-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 > The de facto starter repo for building scalable apps with [Angular](https://angularjs.org), [ES6](https://git.io/es6features), and [Webpack](http://webpack.github.io/)
+
+This Repository has been modified to add more generators and Express with a MongoDB connection, to be used as a template for MEAN Projects with AngularJS.
 
 This repo serves as a minimal starter for those looking to get up-and-running with Angular and ES6, using [Gulp](http://gulpjs.com/) and [Webpack](http://webpack.github.io/) for the build process.
 **This seed is not a Yeoman generator.** It's a minimal starter with tasks for building the boilerplate. **These are its features**:
@@ -29,13 +23,12 @@ This repo serves as a minimal starter for those looking to get up-and-running wi
 * A full testing system in place
 * [SASS](http://sass-lang.com/) support via node-sass
 
-**Check out the [JSPM version](https://github.com/angularclass/NG6-starter/tree/jspm)--an alternative to Webpack as an ES6 build system.**
-
 > If you're looking for a preliminary [Angular 2](https://angular.io/) build, please use the [angular2-webpack-starter](https://github.com/angularclass/angular2-webpack-starter).
 ___
 
 # Table of Contents
 * [Walkthrough](#walkthrough)
+    * [Requirements](#requirements)
     * [Build System](#build-system)
     * [File Structure](#file-structure)
     * [Testing Setup](#testing-setup)
@@ -54,6 +47,14 @@ ___
 * [Starter Kit Support and Questions](#starter-kit-support-and-questions)
 
 # Walkthrough
+
+## Requirements
+
+You need to have installed the following software:
+* NodeJS
+* nodemon
+* Node Packages: `npm i gulp webpack -g`
+
 ## Build System
 NG6 uses NPM scripts, Gulp, and Webpack together for its build system. Yes, you don't need Gulp if you're using Webpack. This is true if your build system is only responsible for file manipulation. However, ours is not.
 
@@ -278,10 +279,3 @@ Filters entry file is `client/app/common/filters/filter.js`, all filters are dec
 ___
 
 enjoy — **AngularClass** 
-
-<br><br>
-
-[![AngularClass](https://cloud.githubusercontent.com/assets/1016365/9863770/cb0620fc-5af7-11e5-89df-d4b0b2cdfc43.png  "Angular Class")](https://angularclass.com)
-##[AngularClass](https://angularclass.com)
-> Learn AngularJS, Angular 2, and Modern Web Development from the best.
-> Looking for corporate Angular training, want to host us, or Angular consulting? hello@angularclass.com
