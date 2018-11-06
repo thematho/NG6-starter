@@ -1,15 +1,15 @@
 'use strict';
 
-import gulp     from 'gulp';
-import webpack  from 'webpack';
-import path     from 'path';
-import gutil    from 'gulp-util';
-import serve    from 'browser-sync';
-import del      from 'del';
+import gulp from 'gulp';
+import webpack from 'webpack';
+import path from 'path';
+import gutil from 'gulp-util';
+import serve from 'browser-sync';
+import del from 'del';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import colorsSupported      from 'supports-color';
-import historyApiFallback   from 'connect-history-api-fallback';
+import colorsSupported from 'supports-color';
+import historyApiFallback from 'connect-history-api-fallback';
 
 let root = 'client';
 
@@ -42,10 +42,10 @@ let paths = {
 // use webpack.config.js to build modules
 gulp.task('webpack', ['clean'], (cb) => {
   const config = require('./webpack.dist.config');
-  config.entry.app = paths.entry;
+  config.entry.app = paths.entry.concat(config.entry.app);
 
   webpack(config, (err, stats) => {
-    if(err)  {
+    if (err) {
       throw new gutil.PluginError("webpack", err);
     }
 
@@ -61,19 +61,19 @@ gulp.task('webpack', ['clean'], (cb) => {
 
 gulp.task('serve', () => {
   const config = require('./webpack.dev.config');
-  config.entry.app = [
+  config.entry.app = config.entry.app.concat([
     // this modules required to make HRM working
     // it responsible for all this webpack magic
     'webpack-hot-middleware/client?reload=true',
     // application entry point
-  ].concat(paths.entry);
+  ], paths.entry);
 
-  var compiler = webpack(config);
+  const compiler = webpack(config);
 
   serve({
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 4100,
     open: false,
-    server: {baseDir: root},
+    server: { baseDir: root },
     middleware: [
       historyApiFallback(),
       webpackDevMiddleware(compiler, {

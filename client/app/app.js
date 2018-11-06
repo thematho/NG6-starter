@@ -1,24 +1,24 @@
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
+
 import Common from './common/common';
 import Components from './components/components';
 import Factories from './factories/factories';
 import Services from './services/services';
 import AppComponent from './app.component';
-import 'normalize.css';
+
+
+import AppConfig from './app.config';
+import AppRouter from './app.router';
+
+import Vendors from './vendors/vendors';
 
 angular.module('app', [
-    uiRouter,
-    Common,
-    Components,
-    Factories,
-    Services
-  ])
-  .config(($locationProvider) => {
-    "ngInject";
-    // @see: https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions
-    // #how-to-configure-your-server-to-work-with-html5mode
-    $locationProvider.html5Mode(true).hashPrefix('!');
-  })
-
+  Common,
+  Components,
+  Factories,
+  Services,
+  Vendors,
+])
+  .config(AppConfig)
+  .config(AppRouter)
   .component('app', AppComponent);
