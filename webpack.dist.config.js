@@ -5,7 +5,7 @@ const config = require('./webpack.config');
 // Load Module with Angular's Production configuration aka no debug info
 config.entry = {
   app: [
-    path.join(__dirname, 'client/app/app.production.js')
+    path.join(__dirname, 'client/app/config.prod.js')
   ]
 };
 

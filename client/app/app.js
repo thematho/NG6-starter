@@ -12,7 +12,7 @@ import AppRouter from './app.router';
 
 import Vendors from './vendors/vendors';
 
-angular.module('app', [
+export default angular.module('app', [
   Common,
   Components,
   Factories,
@@ -21,4 +21,6 @@ angular.module('app', [
 ])
   .config(AppConfig)
   .config(AppRouter)
-  .component('app', AppComponent);
+  .component('app', AppComponent)
+  .name;
+

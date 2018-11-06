@@ -1,7 +1,14 @@
 const webpack = require('webpack');
-const path    = require('path');
-const config  = require('./webpack.config');
+const path = require('path');
+const config = require('./webpack.config');
 
+// Load Module with Angular's Development configuration aka intercept urls and
+// point to Express port
+config.entry = {
+  app: [
+    path.join(__dirname, 'client/app/config.dev.js')
+  ]
+};
 config.output = {
   filename: '[name].bundle.js',
   publicPath: '/',

@@ -1,5 +1,4 @@
 import angular from 'angular';
-import APIModule from './services/api-config/api-config';
 
 // @see: https://docs.angularjs.org/guide/production
 // for more details about produciton performance improvements
@@ -9,16 +8,10 @@ function ProductionConfig($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }
 
-let app = angular.module('app');
-let productionModule = angular.module('app.production', [APIModule])
-  .run((API) => {
-    'ngInject';
-    API.URL = '/api';
-
-  })
+const ProdConfigModule = angular.module('app.config.prod', [])
   .config(ProductionConfig)
   .name;
 
-app.requires.push(productionModule);
+app = angular.module('app').requires.push(ProdConfigModule);
 
-export default productionModule;
+export default ProdConfigModule;

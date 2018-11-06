@@ -1,10 +1,10 @@
-function HomeController($http, API) {
+function HomeController($http) {
   'ngInject';
   let $ctrl = this;
 
   this.name = 'home';
   this.$onInit = () => {
-    $http.get(`${API.URL}/users`)
+    $http.get('/api/users')
       .then((response) => {
         this.name = response.data.name;
       });
