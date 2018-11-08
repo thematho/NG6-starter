@@ -1,5 +1,5 @@
 
-const { dbuser, dbpassword, EXPRESS_ENV } = process.env;
+const { dbuser, dbpassword, EXPRESS_ENV, CRYPT_SALT_ROUNDS } = process.env;
 const MONGO_DB_URL = `mongodb://${dbuser}:${dbpassword}@ds145043.mlab.com:45043/todo-crud`;
 const CORS_DEV_CONFIG = {
   origin: (origin, cb) => {
@@ -16,4 +16,5 @@ module.exports = {
   MONGO_DB_URL,
   ENV: EXPRESS_ENV || 'DEV',
   CORS_CONF: EXPRESS_ENV !== 'DEV' ? {} : CORS_DEV_CONFIG,
+  SALT_ROUNDS: CRYPT_SALT_ROUNDS || 0,
 };

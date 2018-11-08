@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt'),
+const bcrypt = require('bcrypt');
+const saltRounds = require('../config').SALT_ROUNDS;
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, index: { unique: true } },
@@ -9,10 +10,13 @@ const UserSchema = new mongoose.Schema({
 });
 
 // TODO: Add UserSchema.pre('save', fn) to hash user Password with bcrypt
+UserSchema.pre('save', function onPreSave(next) {
+  this.password = bcrypt.hashSync(this.password, saltRounds);
+  next();
+});
 
 UserSchema.method.checkPassword = function checkPassword(incomingPassword, cb) {
-  // TODO: Implement bcrypt compare  function
-  return this.password === incomingPassword ?
+  return bcrypt.compareSync(this.password, incomingPassword) ?
     cb(null, true) :
     cb({ name: 'PASS_ERROR', message: 'Wrong Password' });
 };
@@ -26,8 +30,7 @@ UserSchema.statics.authenticate = function authenticate(username, password, cb) 
       if (validPassword) return cb(null, user);
       // TODO: Add account lock on multiple retries
     })
-
-  })
-}
+  });
+};
 
 module.exports = mongoose.model('User', UserSchema);
