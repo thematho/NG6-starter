@@ -7,7 +7,7 @@ function DevConfig($httpProvider) {
   $httpProvider.interceptors.push(function ($q) {
     return {
       'request': function (config) {
-        config.url = 'localhost:3000' + config.url;
+        config.url = 'http://localhost:8080' + config.url;
         return config || $q.when(config);
       }
     };

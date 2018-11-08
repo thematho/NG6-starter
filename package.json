@@ -16,6 +16,7 @@
     "body-parser": "^1.18.3",
     "compress": "^0.99.0",
     "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "material-design-icons": "^3.0.1",
     "mongoose": "^5.3.9",
@@ -76,7 +77,8 @@
     "start": "node server/bin/www",
     "start:dev": "concurrently --kill-others \"npm run start:frontend\" \"npm run start:backend\"",
     "start:frontend": "gulp serve",
-    "start:backend": "nodemon --inspect server/bin/www --watch server",
+    "start:backend": "nodemon server/bin/www --watch server",
+    "start:backend:debug": "nodemon --inspect server/bin/www --watch server",
     "test": "karma start",
     "webpack": "gulp webpack"
   },
