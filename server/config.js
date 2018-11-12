@@ -14,6 +14,7 @@ const CORS_DEV_CONFIG = {
 
 module.exports = {
   MONGO_DB_URL,
+  MONGO_TEST_DB_URL: "mongodb://localhost:27017/mock?socketTimeoutMS=120000",
   ENV: EXPRESS_ENV || 'DEV',
   CORS_CONF: EXPRESS_ENV !== 'DEV' ? {} : CORS_DEV_CONFIG,
   SALT_ROUNDS: CRYPT_SALT_ROUNDS || 0,

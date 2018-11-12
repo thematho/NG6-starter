@@ -7,7 +7,6 @@ const logger = require('morgan');
 const app = express();
 const config = require('./config');
 const cors = require('cors');
-const security = require('./security');
 require('./models/db');
 
 // Routers
@@ -26,6 +25,6 @@ app.use(express.static(path.join(__dirname, '../dist')));
 router.use('/users', userRouter);
 router.use('/task', taskRouter);
 
-app.use('/api', cors(config.CORS_CONF), security.validateUser, router);
+app.use('/api', cors(config.CORS_CONF), router);
 
 module.exports = app;

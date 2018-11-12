@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = require('../config').SALT_ROUNDS;
-const config = require('./config');
+const { USER_LOCKED_TIME, MAX_LOGIN_ATTEMPS } = require('../config');
+const ERROR = require('../errors').AUTHENTICATION_ERRORS;
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, index: { unique: true } },
@@ -12,13 +13,7 @@ const UserSchema = new mongoose.Schema({
   lockedTime: { type: Number },
 });
 
-const authenticationErrors = UserSchema.static.loginErrors = {
-  WRONG_PASSWORD: 0,
-  MAX_ATTEMPTS: 1,
-  USER_NOT_FOUND: 2,
-};
 
-// TODO: Add UserSchema.pre('save', fn) to hash user Password with bcrypt
 UserSchema.pre('save', function onPreSave(next) {
   if (this.isModified('password')) {
     this.password = bcrypt.hashSync(this.password, saltRounds);
@@ -34,38 +29,24 @@ UserSchema.method.checkPassword = function checkPassword(incomingPassword) {
   return bcrypt.compareSync(this.password, incomingPassword);
 };
 
-UserSchema.methods.incLoginAttempts = function (cb) {
-  // if we have a previous lock that has expired, restart at 1
-  if (this.lockUntil && this.lockUntil < Date.now()) {
-    return this.update({
-      $set: { loginAttempts: 1 },
-      $unset: { lockUntil: 1 }
-    }, cb);
-  }
-  // otherwise we're incrementing
-  var updates = { $inc: { loginAttempts: 1 } };
-  // lock the account if we've reached max attempts and it's not locked already
-  if (this.loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS && !this.isLocked) {
-    updates.$set = { lockUntil: Date.now() + LOCK_TIME };
-  }
-  return this.update(updates, cb);
+UserSchema.statics.authenticate = function (username, password) {
+  return this.findOne({ username })
+    .then((user) => {
+      if (!user) return mongoose.Promise.reject(ERROR.USER_NOT_FOUND);
+      if (user.isLocked) return mongoose.Promise.reject(ERROR.MAX_ATTEMPTS);
+      if (!user.checkPassword(password)) {
+        user.update({
+          $set: { loginAttempts: user.loginAttempts++ },
+          $set: { lockUntil: Date.now() + USER_LOCKED_TIME }
+        });
+        return mongoose.Promise.reject(ERROR.WRONG_CREDENTIALS);
+      }
+      user.update({ $set: { loginAttempts: 0 }, $unset: { lockUntil: 0 } });
+      return user;
+    }, error => mongoose.Promise.reject(error));
 };
 
-UserSchema.statics.authenticate = function authenticate(username, password, cb) {
-  return this.findOne({ username }).then(()=>{
-    
-  }); (error, user) => {
-    if (error) return cb(error);
-    if (!user) return cb(null, null, authenticationErrors.USER_NOT_FOUND);
+UserSchema.statics.createUser = function (username, password) {
 
-    if (this.isLocked) {
-      return cb(null, null, authenticationErrors.MAX_ATTEMPTS);
-    }
-    user.checkPassword(password)
-      .then((validPassword)=> {
-
-      });
-  });
-}; a
-
+};
 module.exports = mongoose.model('User', UserSchema);  
