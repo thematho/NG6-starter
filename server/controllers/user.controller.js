@@ -1,13 +1,16 @@
-const UserSchema = require('../models/user.model');
+const User = require('../models/user.model');
 const sanitize = require('mongo-sanitize');
 const jwt = require('jsonwebtoken');
 
 const TaskController = {
   get: function getTask(req, res, next) {
-    res.send({ name: 'User name test', completed: false });
+    User.getAll(sanitize(req.query.id))
+      .then((list) => {
+        req.json({ list });
+      });
   },
   createUser: function saveTODO(req, res, next) {
-    const user = new UserSchema({
+    const user = new User({
       username: sanitize(req.body.username),
       password: sanitize(req.body.password),
       role: 'User',
@@ -19,7 +22,7 @@ const TaskController = {
       }, error => res.status(500).json({ message: error }));
   },
   signIn: function signIn(req, res, next) {
-    UserSchema
+    User
       .authenticate(sanitize(req.body.username), sanitize(req.body.password))
       .then((user) => {
         const token = jwt.sign({ id: user.username }, req.app.get('secret'), { expiresIn: '1h' });

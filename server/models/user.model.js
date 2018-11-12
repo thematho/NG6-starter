@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = require('../config').SALT_ROUNDS;
 const { USER_LOCKED_TIME, MAX_LOGIN_ATTEMPS } = require('../config');
 const ERROR = require('../errors').AUTHENTICATION_ERRORS;
-
+Í
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
@@ -44,6 +44,17 @@ UserSchema.statics.authenticate = function (username, password) {
       user.update({ $set: { loginAttempts: 0 }, $unset: { lockUntil: 0 } });
       return user;
     }, error => mongoose.Promise.reject(error));
+};
+
+UserSchema.statics.getList = function (search) {
+  const searchEx = new RegExp(search, 'i');
+  return this.find({
+    $or: [{
+      username: { $regex: searchEx }
+    }, {
+      nickname: { $regex: searchEx }
+    }],
+  });
 };
 
 UserSchema.statics.createUser = function (username, password) {
