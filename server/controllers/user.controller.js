@@ -1,13 +1,14 @@
 const User = require('../models/user.model');
 const sanitize = require('mongo-sanitize');
 const jwt = require('jsonwebtoken');
+const errorFactory = require('./error-handler')('User Controller');
 
-const TaskController = {
+const UserController = {
   get: function getTask(req, res, next) {
     User.getAll(sanitize(req.query.id))
       .then((list) => {
         req.json({ list });
-      });
+      }, errorFactory.getHandler('get'));
   },
   createUser: function saveTODO(req, res, next) {
     const user = new User({
@@ -19,7 +20,7 @@ const TaskController = {
     user.save()
       .then((user) => {
         res.json(user);
-      }, error => res.status(500).json({ message: error }));
+      }, errorFactory.getHandler('create user'));
   },
   signIn: function signIn(req, res, next) {
     User
@@ -27,12 +28,10 @@ const TaskController = {
       .then((user) => {
         const token = jwt.sign({ id: user.username }, req.app.get('secret'), { expiresIn: '1h' });
         res.json({ status: "success", message: "user found!!!", data: { user, token } });
-      }, (error) => {
-        res.status(401).json({
-          status: "error",
-          message: "Wrong user or password", data: null
-        });
-      });
+      }, errorFactory.getHandler('signIn', {
+        status: 401,
+        message: "Wrong user or password",
+      }));
   },
   signOut: function signOut(req, res, next) {
     req.session.destroy();
@@ -40,4 +39,4 @@ const TaskController = {
   },
 }
 
-module.exports = TaskController;
+module.exports = UserController;

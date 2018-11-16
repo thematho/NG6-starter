@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = require('../config').SALT_ROUNDS;
 const { USER_LOCKED_TIME, MAX_LOGIN_ATTEMPS } = require('../config');
 const ERROR = require('../errors').AUTHENTICATION_ERRORS;
-Í
+
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
