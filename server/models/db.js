@@ -8,17 +8,19 @@ const mongooseConfig = {
   autoIndex: true
 };
 
-const connectToDB = () => {
+const connectToDB = (env) => {
+  console.log(`Connecting to ${env} DB...`);
   mongoose.connect(MONGO_DB_URL, mongooseConfig, function (err) {
-    console.log(`Connected to Mocked DB ${err ? err : ''}`);
+    console.log(`Connected to ${env} DB`);
   });
 };
 
 if (ENV === 'DEV') {
-  mockgoose.prepareStorage()
-    .then(connectToDB);
+  mockgoose.prepareStorage().then(() => {
+    connectToDB('Mocked')
+  });
 } else {
-  connectToDB();
+  connectToDB('Production');
 }
 
 mongoose.Promise = global.Promise;

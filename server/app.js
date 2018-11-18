@@ -5,8 +5,9 @@ const compression = require('compression');
 const logger = require('morgan');
 
 const app = express();
-const config = require('./config');
-const cors = require('cors');
+const corsMiddleware = require('./middlewares/cors')();
+const { validateUser } = require('./middlewares/security');
+const errorHandlerMiddleware = require('./middlewares/error-handler');
 require('./models/db');
 
 // Routers
@@ -25,6 +26,8 @@ app.use(express.static(path.join(__dirname, '../dist')));
 router.use('/users', userRouter);
 router.use('/task', taskRouter);
 
-app.use('/api', cors(config.CORS_CONF), router);
+app.use('/api', corsMiddleware, validateUser, router);
+// Handle API errors with proper status code
+app.use(errorHandlerMiddleware);
 
 module.exports = app;
