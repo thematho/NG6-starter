@@ -66,7 +66,7 @@ module.exports = (plop) => {
           templateFile: './templates/component/component.spec.js',
           abortOnFail: true,
         },
-      ]
+      ];
     }
   };
 }

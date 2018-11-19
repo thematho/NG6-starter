@@ -23,11 +23,10 @@ const UserController = {
       });
   },
   signIn: (req, res, next) => {
-    User
-      .authenticate(sanitize(req.body.username), sanitize(req.body.password))
+    User.authenticate(sanitize(req.body.username), sanitize(req.body.password))
       .then((user) => {
-        const token = jwt.sign({ id: user.username }, req.app.get('secret'), { expiresIn: '1h' });
-        res.json({ status: "success", message: "user found!!!", data: { user, token } });
+        const token = jwt.sign({ id: user.username }, req.app.get('secretKey'), { expiresIn: '1h' });
+        res.json({ user, token });
       })
       .catch(next);
   },

@@ -1,4 +1,4 @@
-const { dbuser, dbpassword, EXPRESS_ENV, CRYPT_SALT_ROUNDS } = process.env;
+const { dbuser, dbpassword, EXPRESS_ENV, CRYPT_SALT_ROUNDS, SECRET_KEY} = process.env;
 const MONGO_DB_URL = `mongodb://${dbuser}:${dbpassword}@ds145043.mlab.com:45043/todo-crud`;
 
 console.log(`Server Environment Config = ${EXPRESS_ENV}`);
@@ -9,4 +9,5 @@ module.exports = {
   SALT_ROUNDS: CRYPT_SALT_ROUNDS || 0,
   MAX_LOGIN_ATTEMPS: 3,
   USER_LOCKED_TIME: 2 * 60 * 60 * 1000,
+  SECRET: SECRET_KEY || 'NG6-MEAN-secret', 
 };

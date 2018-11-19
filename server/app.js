@@ -5,11 +5,14 @@ const compression = require('compression');
 const logger = require('morgan');
 
 const app = express();
+const { SECRET } = require('./config');
 const corsMiddleware = require('./middlewares/cors')();
 const { validateUser } = require('./middlewares/security');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
-require('./models/db');
 
+// Init
+require('./models/db');
+app.set('secretKey', SECRET)
 // Routers
 const router = express.Router();
 const userRouter = require('./routes/user.router');
