@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.model')
+const User = require('../models/user.model');
+const { INVALID_CREDENTIALS, USER_DISABLED } = require('../errors');
 const safeURLS = [
   '/api/users/authenticate',
 ];
@@ -7,7 +8,7 @@ const isSafeURL = (userURL) => {
   return safeURLS.some((URL) => {
     return userURL === URL;
   });
-}
+};
 
 function verifyToken(req, res, next) {
   if (isSafeURL(req.path)) {
@@ -15,7 +16,9 @@ function verifyToken(req, res, next) {
   }
   jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function (err, decoded) {
     if (err) {
-      res.status(401).json({ status: "error", message: err.message, data: null });
+      res.status(INVALID_CREDENTIALS.status).json({
+        message: INVALID_CREDENTIALS.message
+      });
     } else {
       res.locals.username = decoded.id;
       next();
@@ -27,11 +30,10 @@ function verifyUser(req, res, next) {
   User.findOne({ username: res.locals.username, enabled: true })
     .then(next)
     .catch((err) => {
-      res.status(401).json({
-        status: "error",
-        message: 'Your user is not longer available',
-        data: null
-      });
+      res.status(USER_DISABLED.status)
+        .json({
+          message: USER_DISABLED.message
+        });
     });
 }
 
