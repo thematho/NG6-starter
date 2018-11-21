@@ -7,7 +7,7 @@ const logger = require('morgan');
 const app = express();
 const { SECRET } = require('./config');
 const corsMiddleware = require('./middlewares/cors')();
-const { validateUser } = require('./middlewares/security');
+const { verifyToken, verifyUser } = require('./middlewares/security');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
 
 // Init
@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, '../dist')));
 router.use('/users', userRouter);
 router.use('/task', taskRouter);
 
-app.use('/api', corsMiddleware, validateUser, router);
+app.use('/api', corsMiddleware, verifyToken, verifyUser, router);
 // Handle API errors with proper status code
 app.use(errorHandlerMiddleware);
 

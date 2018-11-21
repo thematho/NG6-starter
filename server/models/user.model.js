@@ -10,7 +10,8 @@ const UserSchema = new mongoose.Schema({
   role: { type: String, required: true },
   nickname: { type: String, required: true },
   loginAttempts: { type: Number, required: true, default: 0 },
-  lockedTime: { type: Number },
+  lockUntil: { type: Number },
+  enabled: { type: Boolean, default: true },
 });
 
 
@@ -22,7 +23,7 @@ UserSchema.pre('save', function onPreSave(next) {
 });
 
 UserSchema.virtual('isLocked').get(() => {
-  return this.lockedTime && this.lockedTime > Date.now();
+  return this.lockUntil && this.lockUntil > Date.now();
 });
 
 UserSchema.method.checkPassword = function checkPassword(incomingPassword) {
@@ -35,9 +36,13 @@ UserSchema.statics.authenticate = function (username, password) {
       if (!user) return mongoose.Promise.reject(ERROR.USER_NOT_FOUND);
       if (user.isLocked) return mongoose.Promise.reject(ERROR.MAX_ATTEMPTS);
       if (!user.checkPassword(password)) {
+        let lockUntil = 0;
+        if (user.loginAttempts === MAX_LOGIN_ATTEMPS) {
+          lockUntil = Date.now() + USER_LOCKED_TIME;
+        }
         user.update({
           $set: { loginAttempts: user.loginAttempts++ },
-          $set: { lockUntil: Date.now() + USER_LOCKED_TIME }
+          $set: { lockUntil }
         });
         return mongoose.Promise.reject(ERROR.WRONG_CREDENTIALS);
       }
