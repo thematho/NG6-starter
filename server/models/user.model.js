@@ -51,18 +51,4 @@ UserSchema.statics.authenticate = function (username, password) {
     }, error => mongoose.Promise.reject(error));
 };
 
-UserSchema.statics.getList = function (search) {
-  const searchEx = new RegExp(search, 'i');
-  return this.find({
-    $or: [{
-      username: { $regex: searchEx }
-    }, {
-      nickname: { $regex: searchEx }
-    }],
-  });
-};
-
-UserSchema.statics.createUser = function (username, password) {
-
-};
 module.exports = mongoose.model('User', UserSchema);  
