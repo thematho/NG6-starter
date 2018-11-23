@@ -1,7 +1,7 @@
 const User = require('../../models/user.model');
 
 module.exports = {
-  toggleUser = (enabled) => {
+  toggleUser: (enabled) => {
     return (req, res, next) => {
       User.findOne({ uername: req.param.id })
         .then((user) => {

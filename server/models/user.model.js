@@ -4,10 +4,11 @@ const saltRounds = require('../config').SALT_ROUNDS;
 const { USER_LOCKED_TIME, MAX_LOGIN_ATTEMPS } = require('../config');
 const ERROR = require('../errors').AUTHENTICATION_ERRORS;
 
+// TODO Add validators for different errors.
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
-  role: { type: String, required: true },
+  role: { type: String, required: true, enum: ['USER', 'ADMIN'] },
   nickname: { type: String, required: true },
   loginAttempts: { type: Number, required: true, default: 0 },
   lockUntil: { type: Number },
@@ -18,6 +19,7 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre('save', function onPreSave(next) {
   if (this.isModified('password')) {
     this.password = bcrypt.hashSync(this.password, saltRounds);
+    console.log(`password ${this.password}`);
   }
   return next();
 });
@@ -26,8 +28,8 @@ UserSchema.virtual('isLocked').get(() => {
   return this.lockUntil && this.lockUntil > Date.now();
 });
 
-UserSchema.method.checkPassword = function checkPassword(incomingPassword) {
-  return bcrypt.compareSync(this.password, incomingPassword);
+UserSchema.methods.checkPassword = function checkPassword(incomingPassword) {
+  return bcrypt.compareSync(incomingPassword, this.password);
 };
 
 UserSchema.statics.authenticate = function (username, password) {

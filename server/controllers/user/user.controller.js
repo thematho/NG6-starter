@@ -21,7 +21,7 @@ const UserController = {
     const user = new User({
       username: sanitize(req.body.username),
       password: sanitize(req.body.password),
-      role: sanitize(req.body.password) || 'User',
+      role: sanitize(req.body.role) || 'User',
       nickname: sanitize(req.body.nickname),
     });
     user.save()

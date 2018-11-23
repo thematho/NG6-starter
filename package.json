@@ -3,6 +3,21 @@
   "version": "0.0.1",
   "description": "Starter for Angular + ES6 + (Webpack or JSPM)",
   "main": "index.js",
+  "scripts": {
+    "build": "gulp webpack",
+    "component": "plop component",
+    "directive": "plop directive",
+    "factory": "plop factory",
+    "filter": "plop filter",
+    "service": "plop service",
+    "start": "node server/bin/www",
+    "start:dev": "concurrently --kill-others \"npm run start:frontend\" \"npm run start:backend\"",
+    "start:frontend": "gulp serve",
+    "start:backend": "nodemon server/bin/www --watch server",
+    "start:backend:debug": "nodemon --inspect server/bin/www --watch server",
+    "test": "karma start",
+    "webpack": "gulp webpack"
+  },
   "dependencies": {
     "angular": "^1.7.5",
     "angular-animate": "^1.7.5",
@@ -70,21 +85,6 @@
     "webpack": "^1.13.3",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.6.0"
-  },
-  "scripts": {
-    "build": "gulp webpack",
-    "component": "plop component",
-    "directive": "plop directive",
-    "factory": "plop factory",
-    "filter": "plop filter",
-    "service": "plop service",
-    "start": "node server/bin/www",
-    "start:dev": "concurrently --kill-others \"npm run start:frontend\" \"npm run start:backend\"",
-    "start:frontend": "gulp serve",
-    "start:backend": "nodemon server/bin/www --watch server",
-    "start:backend:debug": "nodemon --inspect server/bin/www --watch server",
-    "test": "karma start",
-    "webpack": "gulp webpack"
   },
   "keywords": [
     "angular",
