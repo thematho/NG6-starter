@@ -15,7 +15,7 @@ function DevConfig($httpProvider) {
 }
 
 const app = angular.module(AppModule);
-const DevConfigModule = angular.module('app.config.dev', [])
+const DevConfigModule = angular.module('meanTemplate.config.dev', [])
   .config(DevConfig)  
   .name;
 

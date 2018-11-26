@@ -21,11 +21,13 @@ const UserController = {
     const user = new User({
       username: sanitize(req.body.username),
       password: sanitize(req.body.password),
-      role: sanitize(req.body.role) || 'User',
+      role: sanitize(req.body.role) || 'USER',
       nickname: sanitize(req.body.nickname),
     });
     user.save()
-      .then(user => res.json(user))
+      .then(({ username, role, nickname, _id }) => {
+        res.json({ username, role, nickname, _id });
+      })
       .catch(next);
   },
 
@@ -35,9 +37,12 @@ const UserController = {
 
   signIn: (req, res, next) => {
     User.authenticate(sanitize(req.body.username), sanitize(req.body.password))
-      .then((user) => {
-        const token = jwt.sign({ id: user.username }, req.app.get('secretKey'), { expiresIn: '1h' });
-        res.json({ user, token });
+      .then(({ username, role, nickname, _id }) => {
+        const token = jwt.sign({ id: username }, req.app.get('secretKey'), { expiresIn: '1h' });
+        res.json({
+          user: { username, role, nickname, _id },
+          token
+        });
       })
       .catch(next);
   },

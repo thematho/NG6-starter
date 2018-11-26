@@ -12,7 +12,7 @@ import ngMessages from 'angular-messages';
 import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
 
-let VendorsModule = angular.module('app.vendors', [
+let VendorsModule = angular.module('meanTemplate.vendors', [
     uiRouter,
     ngMaterial,
     ngAnimate,

@@ -1,7 +1,7 @@
 import angular from 'angular';
 import UserFactory from './user.factory';
 
-let userModule = angular.module('user', [])
+let userModule = angular.module('meanTemplate.common.user', [])
 
 .factory('User', UserFactory)
   

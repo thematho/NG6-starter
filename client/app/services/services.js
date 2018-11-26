@@ -1,8 +1,8 @@
 import angular from 'angular';
-import Item from './item/item';
+import AuthenticationModule from './authentication/authentication';
 
-let serviceModule = angular.module('app.services', [
-  Item,
+let serviceModule = angular.module('meanTemplate.services', [
+  AuthenticationModule,
 ])
 
 .name;

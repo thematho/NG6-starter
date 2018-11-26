@@ -12,7 +12,7 @@ import AppRouter from './app.router';
 
 import Vendors from './vendors/vendors';
 
-export default angular.module('app', [
+export default angular.module('meanTemplate', [
   Common,
   Components,
   Factories,

@@ -8,7 +8,7 @@ function ProductionConfig($compileProvider) {
   $compileProvider.debugInfoEnabled(false);
 }
 
-const ProdConfigModule = angular.module('app.config.prod', [])
+const ProdConfigModule = angular.module('meanTemplate.config.prod', [])
   .config(ProductionConfig)
   .name;
 

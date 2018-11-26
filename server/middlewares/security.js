@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
-const { INVALID_CREDENTIALS, USER_DISABLED } = require('../errors');
+const { AUTHENTICATION_ERRORS } = require('../errors');
+const { INVALID_CREDENTIALS, USER_DISABLED } = AUTHENTICATION_ERRORS;
 const safeURLS = [
   '/api/users/authenticate',
 ];

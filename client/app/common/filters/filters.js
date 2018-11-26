@@ -1,7 +1,7 @@
 import angular from 'angular';
 import camelcase from './camelcase';
 
-let filtersModule = angular.module('app.common.filters', [])
+let filtersModule = angular.module('meanTemplate.common.filters', [])
 
 .filter('camelcase', camelcase)
 
