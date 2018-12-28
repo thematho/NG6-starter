@@ -17,6 +17,7 @@ const UserController = {
       .catch(next);
   },
 
+  // TODO Add encription on user side and backend for password
   createUser: (req, res, next) => {
     const user = new User({
       username: sanitize(req.body.username),

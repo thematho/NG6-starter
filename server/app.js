@@ -12,7 +12,8 @@ const errorHandlerMiddleware = require('./middlewares/error-handler');
 
 // Init
 require('./models/db');
-app.set('secretKey', SECRET)
+app.set('secretKey', SECRET);
+
 // Routers
 const router = express.Router();
 const userRouter = require('./routes/user.router');
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, '../dist')));
 router.use('/users', userRouter);
 router.use('/task', taskRouter);
 
+// TODO: Add api version on url path
 app.use('/api', corsMiddleware, verifyToken, verifyUser, router);
 // Handle API errors with proper status code
 app.use(errorHandlerMiddleware);

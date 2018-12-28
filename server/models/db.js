@@ -7,6 +7,8 @@ const mongooseConfig = {
   useCreateIndex: true,
   autoIndex: true
 };
+// TODO: Create script to clean DB and generate basic users on Production DB manually
+// TODO: Create script to generate basic users on mocked DB on startup automatically
 
 const connectToDB = (env) => {
   console.log(`Connecting to ${env} DB...`);
