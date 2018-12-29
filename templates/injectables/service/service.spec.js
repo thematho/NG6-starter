@@ -33,9 +33,9 @@ describe('Module {{ camelCase (pkg 'name') }}.{{ camelCase name }}', () => {
       };
     }));
 
-    it('has a getName method [REMOVE]', () => { // erase if removing this.items from the service
+it('has a getName property [REMOVE]', () => { // erase if removing this.items from the service
       let service = getService();
-      expect(service).to.have.property('getName');
+      expect(service).toHaveProperty('getName');
     });
 
     describe('HTTP requests', () => {
@@ -57,7 +57,7 @@ describe('Module {{ camelCase (pkg 'name') }}.{{ camelCase name }}', () => {
           let service = getService();
 
           service.getItems().then((response) => {
-            expect(response.data).to.have.length(2);
+            expect(response.data).toHaveLength(2);
             done();
           });
 
@@ -75,7 +75,7 @@ describe('Module {{ camelCase (pkg 'name') }}.{{ camelCase name }}', () => {
 
           service.getItems()
           .then((response) => {}, (response) => {
-              expect(response.data).to.be.undefined;
+              expect(response.data).toBeUndefined;
               done();
             });
 

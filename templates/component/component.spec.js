@@ -24,7 +24,7 @@ describe('Component: {{ camelCase name }}', () => {
     // controller specs
     it('has a name property [REMOVE]', () => { // erase if removing this.name from the controller
       let controller = makeController();
-      expect(controller).to.have.property('name');
+      expect(controller).toHaveProperty('name');
     });
   });
 
@@ -32,7 +32,7 @@ describe('Component: {{ camelCase name }}', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., \{{  }}
     it('has name in template [REMOVE]', () => {
-      expect({{ camelCase name }}Template).to.match(/\{{\s?\$ctrl\.name\s?}}/g);
+      expect({{ camelCase name }}Template).toMatch(/\{{\s?\$ctrl\.name\s?}}/g);
     });
   });
 
@@ -41,11 +41,11 @@ describe('Component: {{ camelCase name }}', () => {
       let component = {{ camelCase name }}Component;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal({{ camelCase name }}Template);
+        expect(component.template).toEqual({{ camelCase name }}Template);
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal({{ properCase name }}Controller);
+        expect(component.controller).toEqual({{ properCase name }}Controller);
       });
   });
 });

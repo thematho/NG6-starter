@@ -1,6 +1,6 @@
 import {{ camelCase name }} from './{{ dashCase name }}'
 
-describe('Filter: {{ dashCase name }}', () => {
+describe('Filter: {{ camelCase name }}', () => {
   let filter;
   const testInputs = [
     { input: 'test input',  expected: 'TEST INPUT' },
@@ -13,9 +13,9 @@ describe('Filter: {{ dashCase name }}', () => {
     filter = {{ camelCase name }}();
   });
 
-  it('should format entries to {{ dashCase name }} [REMOVE]' , () => {
+it('should format entries to {{ camelCase name }} [REMOVE]' , () => {
     testInputs.forEach((test)=> {
-      expect(filter(test.input)).to.be.equal(test.expected);
+      expect(filter(test.input)).toEqual(test.expected);
     });
   });
 });

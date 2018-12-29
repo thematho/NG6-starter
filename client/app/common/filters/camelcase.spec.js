@@ -16,7 +16,7 @@ describe('Filter: camelcase', () => {
 
   it('should format entries to camelCase' , () => {
     testInputs.forEach((test)=> {
-      expect(filter(test.input)).to.be.equal(test.expected);
+      expect(filter(test.input)).toEqual(test.expected);
     });
   });
 });

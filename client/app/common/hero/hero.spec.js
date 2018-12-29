@@ -22,7 +22,7 @@ describe('Hero', () => {
     // controller specs
     it('has a name property [REMOVE]', () => { // erase if removing this.name from the controller
       let controller = makeController();
-      expect(controller).to.have.property('name');
+      expect(controller).toHaveProperty('name');
     });
   });
 
@@ -30,7 +30,7 @@ describe('Hero', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(HeroTemplate).to.match(/{{\s?\$ctrl\.name\s?}}/g);
+      expect(HeroTemplate).toMatch(/{{\s?\$ctrl\.name\s?}}/g);
     });
   });
 
@@ -39,11 +39,11 @@ describe('Hero', () => {
       let component = HeroComponent;
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(HeroTemplate);
+        expect(component.template).toEqual(HeroTemplate);
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(HeroController);
+        expect(component.controller).toEqual(HeroController);
       });
   });
 });

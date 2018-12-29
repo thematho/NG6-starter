@@ -36,7 +36,7 @@ ___
     * [Dependencies](#dependencies)
     * [Installing](#installing)
     * [Running the App](#running-the-app)
-        * [Gulp Tasks](#gulp-tasks)
+        * [Gulp Tasks](#tasks)
         * [Testing](#testing)
         * [Generators](#generators)
 		  * [Generating Components](#generating-components)

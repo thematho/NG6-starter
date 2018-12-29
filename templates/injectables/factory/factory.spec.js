@@ -1,6 +1,6 @@
 import {{ camelCase name }} from './{{ dashCase name }}.factory'
 
-describe('Factory: {{ dashCase name }}', () => {
+describe('Factory: {{ camelCase name }}', () => {
   let factory;
 
   // Modules import
@@ -8,10 +8,10 @@ describe('Factory: {{ dashCase name }}', () => {
     factory = {{ camelCase name }};
   });
 
-  it('should create a {{ dashCase name }}Service [REMOVE]' , () => {
+  it('should create a {{ camelCase name }}Service [REMOVE]' , () => {
     let service = factory();
-      expect(service).to.have.property('getName');
-      expect(service.getName()).to.be.equals('{{ properCase name }}Service');
+      expect(service).toHaveProperty('getName');
+      expect(service.getName()).toEqual('{{ properCase name }}Service');
   });
 });
 

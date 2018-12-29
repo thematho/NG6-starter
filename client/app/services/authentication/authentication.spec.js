@@ -35,7 +35,7 @@ describe('Module meanTemplate.authentication', () => {
 
     it('has a getName method [REMOVE]', () => { // erase if removing this.items from the service
       let service = getService();
-      expect(service).to.have.property('getName');
+      expect(service).toHaveProperty('getName')
     });
 
     describe('HTTP requests', () => {
@@ -57,7 +57,7 @@ describe('Module meanTemplate.authentication', () => {
           let service = getService();
 
           service.getItems().then((response) => {
-            expect(response.data).to.have.length(2);
+            expect(response.data).toHaveLength(2);
             done();
           });
 
@@ -75,7 +75,7 @@ describe('Module meanTemplate.authentication', () => {
 
           service.getItems()
           .then((response) => {}, (response) => {
-              expect(response.data).to.be.undefined;
+              expect(response.data).toBeUndefined;
               done();
             });
 
