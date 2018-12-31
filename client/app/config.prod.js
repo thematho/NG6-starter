@@ -12,6 +12,6 @@ const ProdConfigModule = angular.module('meanTemplate.config.prod', [])
   .config(ProductionConfig)
   .name;
 
-app = angular.module('app').requires.push(ProdConfigModule);
+angular.module('meanTemplate').requires.push(ProdConfigModule);
 
 export default ProdConfigModule;

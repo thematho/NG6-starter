@@ -1,9 +1,9 @@
-import credentialsInterceptor from './unauthorized.interceptor';
-import JWTInterceptor from './session-expiration.interceptor';
+import JWTInterceptor from './jwt.interceptor';
+import sessionExpirationInterceptor from './session-expiration.interceptor';
 export default ($httpProvider) => {
   'ngInject';
 
-  const list = [credentialsInterceptor, JWTInterceptor];
+  const list = [JWTInterceptor, sessionExpirationInterceptor];
   list.forEach((interceptor) => {
     $httpProvider.interceptors.push(interceptor);
   });

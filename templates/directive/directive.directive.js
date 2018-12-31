@@ -2,7 +2,7 @@ export default (scope, el, attrs, ctrl) => {
 
     el.focus();
 
-    el.$on('$destroy', () => {
+    scope.$on('$destroy', () => {
       // Unbind listeners
     });
 }

@@ -1,9 +1,12 @@
+import ngResource from 'angular-resource';
+
 import AuthenticationModule from './authentication';
 import AuthenticationService from './authentication.service';
 
-describe('Module meanTemplate.authentication', () => {
+describe('Module meanTemplate.authentication', ()    expect(object).toHaveProperty(path)=> {
 
   // Load involved Modules
+  beforeEach(window.module(ngResource));
   beforeEach(window.module(AuthenticationModule));
 
   describe('Module', () => {
@@ -16,7 +19,7 @@ describe('Module meanTemplate.authentication', () => {
     let $httpBackend, getService, mockHttp;
 
     beforeEach(inject(($injector) => {
-      let injections = [ $injector.get('$http') /*[, otherDependency]*/];
+      let injections = [ $injector.get('$window'), $injector.get('$resource')];
 
       $httpBackend = $injector.get('$httpBackend');
       getService = () => {
@@ -35,7 +38,8 @@ describe('Module meanTemplate.authentication', () => {
 
     it('has a getName method [REMOVE]', () => { // erase if removing this.items from the service
       let service = getService();
-      expect(service).toHaveProperty('getName')
+      expect(service).toHaveProperty('logIn')
+      expect(service).toHaveProperty('logOut')
     });
 
     describe('HTTP requests', () => {
@@ -86,4 +90,3 @@ describe('Module meanTemplate.authentication', () => {
 
   });
 });
-0

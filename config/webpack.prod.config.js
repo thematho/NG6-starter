@@ -1,7 +1,13 @@
-var webpack = require('webpack');
-var path = require('path');
-var config = require('../webpack.config');
+const webpack = require('webpack');
+const path = require('path');
+const config = require('../webpack.config');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+// Load Module with Angular's Production configuration aka no debug info
+const angularProdModule = path.join(__dirname, '../client/app/config.prod.js');
+config.entry = {
+  app: config.entry.app.concat([angularProdModule])
+};
 
 config.mode = 'production';
 config.output = {

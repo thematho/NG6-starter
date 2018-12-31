@@ -7,6 +7,7 @@ function JWTInterceptor($window) {
       if (token) {
         req.headers.push('x-access-token', token || '');
       }
+      return req;
     },
   };
 }

@@ -4,6 +4,7 @@ import {{ camelCase name }} from './{{ dashCase name }}';
 describe('Directive: {{ dashCase name }}', () => {
   let $compile, $timeout, $scope,
     el, htmlStr;
+  let focusStub = jest.fn();
 
   // Modules import
   beforeEach(window.module({{ camelCase name }}));
@@ -14,6 +15,7 @@ describe('Directive: {{ dashCase name }}', () => {
     htmlStr = `<input id="testInput" type="text" test/>`;
     // Make Angular resolve the string
     el = angular.element(htmlStr);
+    el.on('focus', focusStub);
 
     // Trigger digest cycle in order to see changes if needed
     $scope.$digest();
@@ -24,8 +26,7 @@ describe('Directive: {{ dashCase name }}', () => {
   }));
 
   it('input text should have focus [REMOVE]' , () => {
-    let spy = sinon.spy(el[0], 'focus');
-    expect(spy.focus).to.have.been.calledOnce;
+    expect(focusStub).toBeCalled();
   });
 });
 

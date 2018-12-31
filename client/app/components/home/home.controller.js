@@ -7,6 +7,8 @@ function HomeController($http) {
     $http.get('/api/users')
       .then((response) => {
         this.name = response.data.name;
+      }, (err)=>{
+        debugger;
       });
   };
   this.$onChanges = (changes) => { };

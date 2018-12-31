@@ -4,7 +4,7 @@ const CORSConf = config.ENV === 'DEV' ? {
   origin: (origin, cb) => {
     console.log(`CORS attempt origin: ${origin}`);
     // For testing with POSTMan and BrowserSync and AngularJS builds with livereload
-    if (!origin || ~origin.indexOf('http://localhost:4100')) {
+    if (!origin || ~origin.indexOf('http://localhost:3000')) {
       cb(null, true);
     } else {
       cb(new Error('Not allowed by CORS'));
@@ -13,5 +13,6 @@ const CORSConf = config.ENV === 'DEV' ? {
 } : {};
 
 module.exports = function CORSMiddleware() {
+  debugger;
   return cors(CORSConf);
 };

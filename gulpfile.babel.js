@@ -1,13 +1,10 @@
 'use strict';
 
 import gulp     from 'gulp';
-import webpack  from 'webpack';
 import path     from 'path';
 import rename   from 'gulp-rename';
 import template from 'gulp-template';
-import fs       from 'fs';
 import yargs    from 'yargs';
-import lodash   from 'lodash';
 
 let root = 'client';
 
