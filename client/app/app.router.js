@@ -14,6 +14,10 @@ function AppRouter($compileProvider, $stateProvider, $urlRouterProvider, $httpPr
       url: '/',
       component: 'home'
     })
+    .state('login', {
+      url: '/login',
+      component: 'login'
+    })
     .state('about', {
       url: '/about',
       component: 'about'
