@@ -20,6 +20,7 @@
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
+    "cryptico-js": "^1.1.0",
     "express": "^4.16.4",
     "file-loader": "^3.0.1",
     "jsonwebtoken": "^8.3.0",

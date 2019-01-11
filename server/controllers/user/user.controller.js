@@ -8,7 +8,7 @@ const UserController = {
     const searchEx = new RegExp(search, 'i');
     User.find({
       $or: [{
-        username: { $regex: searchEx }
+        email: { $regex: searchEx }
       }, {
         nickname: { $regex: searchEx }
       }],
@@ -20,14 +20,14 @@ const UserController = {
   // TODO Add encription on user side and backend for password
   createUser: (req, res, next) => {
     const user = new User({
-      username: sanitize(req.body.username),
+      email: sanitize(req.body.email),
       password: sanitize(req.body.password),
       role: sanitize(req.body.role) || 'USER',
       nickname: sanitize(req.body.nickname),
     });
     user.save()
-      .then(({ username, role, nickname, _id }) => {
-        res.json({ username, role, nickname, _id });
+      .then(({ email, role, nickname, _id }) => {
+        res.json({ email, role, nickname, _id });
       })
       .catch(next);
   },
@@ -37,11 +37,11 @@ const UserController = {
   enableUser: toggleUser(true),
 
   signIn: (req, res, next) => {
-    User.authenticate(sanitize(req.body.username), sanitize(req.body.password))
-      .then(({ username, role, nickname, _id }) => {
-        const token = jwt.sign({ id: username }, req.app.get('secretKey'), { expiresIn: '1h' });
+    User.authenticate(sanitize(req.body.email), sanitize(req.body.password))
+      .then(({ email, role, nickname, _id }) => {
+        const token = jwt.sign({ id: email }, req.app.get('secretKey'), { expiresIn: '1h' });
         res.json({
-          user: { username, role, nickname, _id },
+          user: { email, role, nickname, _id },
           token
         });
       })

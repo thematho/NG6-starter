@@ -7,10 +7,11 @@ const mongooseConfig = {
   useCreateIndex: true,
   autoIndex: true
 };
+const initDB = require('./db.init');
 // TODO: Create script to clean DB and generate basic users on Production DB manually
 // TODO: Create script to generate basic users on mocked DB on startup automatically
 
-const connectToDB = (env) => {
+const connectToDB = (env, callback) => {
   console.log(`Connecting to ${env} DB...`);
   mongoose.connect(MONGO_DB_URL, mongooseConfig, function (err) {
     console.log(`Connected to ${env} DB`);
@@ -19,7 +20,7 @@ const connectToDB = (env) => {
 
 if (ENV === 'DEV') {
   mockgoose.prepareStorage().then(() => {
-    connectToDB('Mocked')
+    connectToDB('Mocked', initDB);
   });
 } else {
   connectToDB('Production');

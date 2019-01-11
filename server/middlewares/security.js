@@ -21,14 +21,14 @@ function verifyToken(req, res, next) {
         message: INVALID_CREDENTIALS.message
       });
     } else {
-      res.locals.username = decoded.id;
+      res.locals.email = decoded.id;
       next();
     }
   });
 }
 
 function verifyUser(req, res, next) {
-  User.findOne({ username: res.locals.username, enabled: true })
+  User.findOne({ email: res.locals.email, enabled: true })
     .then(next)
     .catch((err) => {
       res.status(USER_DISABLED.status)

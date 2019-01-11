@@ -16,6 +16,7 @@ app.set('secretKey', SECRET);
 
 // Routers
 const router = express.Router();
+const securityRouter = require('./routes/security.router');
 const userRouter = require('./routes/user.router');
 const taskRouter = require('./routes/task.router');
 
@@ -31,6 +32,7 @@ router.use('/users', userRouter);
 router.use('/task', taskRouter);
 
 // TODO: Add api version on url path
+app.use('/api/public', corsMiddleware, securityRouter);
 app.use('/api', corsMiddleware, verifyToken, verifyUser, router);
 // Handle API errors with proper status code
 app.use(errorHandlerMiddleware);

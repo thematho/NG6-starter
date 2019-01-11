@@ -13,6 +13,5 @@ const CORSConf = config.ENV === 'DEV' ? {
 } : {};
 
 module.exports = function CORSMiddleware() {
-  debugger;
   return cors(CORSConf);
 };

@@ -3,6 +3,11 @@ var path    = require('path');
 var config  = require('../webpack.config');
 
 config.mode = 'development';
+// Load Module with Angular's Production configuration aka no debug info
+const angularDevModule = path.join(__dirname, '../client/app/config.dev.js');
+config.entry = {
+  app: config.entry.app.concat([angularDevModule])
+};
 config.output = {
   filename: '[name].bundle.js',
   path: path.resolve(__dirname, '..', 'client')

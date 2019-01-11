@@ -6,7 +6,7 @@ const ERROR = require('../errors').AUTHENTICATION_ERRORS;
 
 // TODO Add validators for different errors.
 const UserSchema = new mongoose.Schema({
-  username: { type: String, required: true, index: { unique: true } },
+  email: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
   role: { type: String, required: true, enum: ['USER', 'ADMIN'] },
   nickname: { type: String, required: true },
@@ -31,8 +31,8 @@ UserSchema.methods.checkPassword = function checkPassword(incomingPassword) {
   return bcrypt.compareSync(incomingPassword, this.password);
 };
 
-UserSchema.statics.authenticate = function (username, password) {
-  return this.findOne({ username })
+UserSchema.statics.authenticate = function (email, password) {
+  return this.findOne({ email })
     .then((user) => {
       if (!user) return mongoose.Promise.reject(ERROR.USER_NOT_FOUND);
       if (user.isLocked) return mongoose.Promise.reject(ERROR.MAX_ATTEMPTS);
