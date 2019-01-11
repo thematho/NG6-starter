@@ -15,8 +15,8 @@ function EncryptionService($resource) {
 
   let encrypt = (value) => {
     return publicKey()
-      .then(publicKey => (
-        cryptico.encrypt(value, publicKey))
+      .then(({ publicKey }) => (
+        cryptico.encrypt(value, publicKey)).cipher
       );
   };
 

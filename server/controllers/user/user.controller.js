@@ -2,6 +2,7 @@ const User = require('../../models/user.model');
 const sanitize = require('mongo-sanitize');
 const jwt = require('jsonwebtoken');
 const { toggleUser } = require('./user.update');
+const { decrypt } = require('../../services/security/security.service');
 
 const UserController = {
   get: (req, res, next) => {
@@ -37,7 +38,8 @@ const UserController = {
   enableUser: toggleUser(true),
 
   signIn: (req, res, next) => {
-    User.authenticate(sanitize(req.body.email), sanitize(req.body.password))
+    let decryptedPass = decrypt(req.body.password).plaintext;
+    User.authenticate(sanitize(req.body.email), decryptedPass)
       .then(({ email, role, nickname, _id }) => {
         const token = jwt.sign({ id: email }, req.app.get('secretKey'), { expiresIn: '1h' });
         res.json({

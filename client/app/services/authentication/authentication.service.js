@@ -1,22 +1,12 @@
-function AuthenticationService($window, $resource, EncryptionService) {
+function AuthenticationService($window, $http, EncryptionService) {
   'ngInject';
 
-  const SECURITY_API_URL = '/api/public/:action';
-  const UserResource = $resource(SECURITY_API_URL, { action: '@action' }, {
-    authenticate: {
-      method: 'POST',
-      action: 'authenticate'
-    },
-    deauthenticate: {
-      method: 'DELETE',
-      action: 'authenticate'
-    }
-  });
+  const SECURITY_API_URL = '/api/public/authenticate';
 
-  const authenticate = (user, pass) => (
-    UserResource
-      .authenticate(user, pass)
-      .$promise
+  const authenticate = (email, password) => (
+    $http.post(SECURITY_API_URL, {
+      email, password
+    })
   );
 
   const storeUserInfo = (response) => {
@@ -24,18 +14,19 @@ function AuthenticationService($window, $resource, EncryptionService) {
     $window.localStorage.setItem('token', response.token);
   };
 
-  const logIn = (user, password) => {
+  const logIn = (email, password) => {
     return EncryptionService
       .encrypt(password)
-      .then(encryptedPass => authenticate(user, encryptedPass))
+      .then(encryptedPass => authenticate(email, encryptedPass))
       .then(storeUserInfo);
   };
 
   const logOut = () => {
-    return UserResource.deauthenticate().$promise.then(() => {
-      $window.localStorage.removeItem('user');
-      $window.localStorage.removeItem('token');
-    });
+    return $http.delete(SECURITY_API_URL)
+      .then(() => {
+        $window.localStorage.removeItem('user');
+        $window.localStorage.removeItem('token');
+      });
   };
 
   return {
