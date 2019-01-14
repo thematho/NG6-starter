@@ -13,14 +13,17 @@ const initDB = require('./db.init');
 
 const connectToDB = (env, callback) => {
   console.log(`Connecting to ${env} DB...`);
-  mongoose.connect(MONGO_DB_URL, mongooseConfig, function (err) {
+  mongoose.connect(MONGO_DB_URL, mongooseConfig, (err)=> {
     console.log(`Connected to ${env} DB`);
+    callback();
   });
 };
 
 if (ENV === 'DEV') {
   mockgoose.prepareStorage().then(() => {
-    connectToDB('Mocked', initDB);
+    connectToDB('Mocked', () => {
+      initDB();
+    });
   });
 } else {
   connectToDB('Production');

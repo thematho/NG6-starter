@@ -9,9 +9,9 @@ function AuthenticationService($window, $http, EncryptionService) {
     })
   );
 
-  const storeUserInfo = (response) => {
-    $window.localStorage.setItem('user', response.user);
-    $window.localStorage.setItem('token', response.token);
+  const storeUserInfo = ({ data }) => {
+    $window.localStorage.setItem('user', JSON.stringify(data.user);
+    $window.localStorage.setItem('token', data.token);
   };
 
   const logIn = (email, password) => {

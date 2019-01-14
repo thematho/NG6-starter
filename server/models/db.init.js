@@ -5,12 +5,12 @@ const { dbpassword } = process.env;
 const InitUserList = [{
   email: 'root',
   password: dbpassword || 'root',
-  role: 'root',
+  role: 'ROOT',
   nickname: 'Root',
 }, {
   email: 'admin@admin.com',
   password: 'admin',
-  role: 'admin',
+  role: 'ADMIN',
   nickname: 'Admin',
 }];
 
