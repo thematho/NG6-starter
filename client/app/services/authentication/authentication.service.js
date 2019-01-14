@@ -10,7 +10,7 @@ function AuthenticationService($window, $http, EncryptionService) {
   );
 
   const storeUserInfo = ({ data }) => {
-    $window.localStorage.setItem('user', JSON.stringify(data.user);
+    $window.localStorage.setItem('user', JSON.stringify(data.user));
     $window.localStorage.setItem('token', data.token);
   };
 
