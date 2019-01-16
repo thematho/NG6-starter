@@ -16,7 +16,7 @@ describe('Module meanTemplate.encryption', () => {
     let $httpBackend, getService, mockHttp;
 
     beforeEach(inject(($injector) => {
-      let injections = [ $injector.get('$http') /*[, otherDependency]*/];
+      let injections = [ $injector.get('$resource') /*[, otherDependency]*/];
 
       $httpBackend = $injector.get('$httpBackend');
       getService = () => {

@@ -3,7 +3,7 @@ import ngResource from 'angular-resource';
 import AuthenticationModule from './authentication';
 import AuthenticationService from './authentication.service';
 
-describe('Module meanTemplate.authentication', ()    expect(object).toHaveProperty(path)=> {
+describe('Module meanTemplate.authentication', ()=> {
 
   // Load involved Modules
   beforeEach(window.module(ngResource));

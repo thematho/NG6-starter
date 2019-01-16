@@ -1,6 +1,7 @@
-var path    = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   devtool: 'source-map',
@@ -17,31 +18,31 @@ module.exports = {
   // },
   module: {
     rules: [
-       {
-         test: /\.js$/,
-         exclude: [/app\/lib/, /node_modules/],
-         loader: 'babel-loader'
-       },
-       {
-         test: /\.html$/,
-         loader: 'raw-loader'
-       },
-       {
-         test: /\.(scss|sass)$/,
-         loader: 'style-loader!css-loader!sass-loader'
-       },
-       {
-         test: /\.css$/,
-         loader: 'style-loader!css-loader'
-       },
-       {
+      {
+        test: /\.js$/,
+        exclude: [/app\/lib/, /node_modules/],
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.html$/,
+        loader: 'raw-loader'
+      },
+      {
+        test: /\.(scss|sass)$/,
+        loader: 'style-loader!css-loader!sass-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
         use: [{
-            loader: 'file-loader',
-            options: {
-                name: '[name].[ext]',
-                outputPath: 'fonts/'
-            }
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/'
+          }
         }]
       }
     ]
@@ -56,5 +57,6 @@ module.exports = {
       hash: true,
       chunks: ['vendor', 'app']
     }),
+    new CopyWebpackPlugin([{ from: './client/translate', to: './translate' }])
   ]
 };

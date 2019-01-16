@@ -1,6 +1,6 @@
 var webpack = require('webpack');
-var path    = require('path');
-var config  = require('../webpack.config');
+var path = require('path');
+var config = require('../webpack.config');
 
 config.mode = 'development';
 // Load Module with Angular's Production configuration aka no debug info
@@ -15,7 +15,10 @@ config.output = {
 
 config.devServer = {
   port: 3000,
-  contentBase: '../client',
+  contentBase: [
+    '../client',
+    path.join('../client/translate', '/translate')
+  ],
   hot: true,
   stats: { colors: true },
   inline: true,

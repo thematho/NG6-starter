@@ -86,4 +86,3 @@ it('has a getName property [REMOVE]', () => { // erase if removing this.items fr
 
   });
 });
-0

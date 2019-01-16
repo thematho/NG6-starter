@@ -22,12 +22,17 @@
             <input
               type="text"
               ng-model="$ctrl.email"
+              placeholer="e-mail"
             >
             <input
               type="password"
               ng-model="$ctrl.password"
+              placeholer="password"
             >
-            <md-button ng-click="$ctrl.signIn($ctrl.email, $ctrl.password)">Login</md-button>
+            <md-button
+              ng-click="$ctrl.signIn($ctrl.email, $ctrl.password)"
+              translate="LOGIN.SIGNIN"
+            ></md-button>
           </md-content>
         </md-tab>
         <md-tab label="Sign Up">
